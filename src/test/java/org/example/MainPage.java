@@ -1,17 +1,17 @@
 package org.example;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class MainPage {
+    public MainPage(String url){
+        Selenide.open(url);
+    }
     private final SelenideElement catalogBtn = $(byText("Каталог товаров"));
     private final SelenideElement popup = $x("//div[@data-meta-name='Popup']");
 
-    public void openMainPage(){
-        open("https://www.citilink.ru/?ysclid=mrkqvto8lj30904633");
-    }
     public void clickCatalogButton(){
         catalogBtn.click();
     }
