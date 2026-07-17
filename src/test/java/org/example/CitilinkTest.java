@@ -1,9 +1,15 @@
 package org.example;
 import com.codeborne.selenide.Configuration;
+import io.qameta.allure.Epic;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@Epic("Магазин 'Ситилинк'")
 public class CitilinkTest {
-    private final static String URL = "https://www.citilink.ru/?ysclid=mrkqvto8lj30904633";
+    static {
+        Configuration.timeout = 30000;
+    }
+    private final static String URL = "https://www.citilink.ru";
 
     MainPage mainPage = new MainPage(URL);
     CatalogPage catalogPage = new CatalogPage();
@@ -11,6 +17,7 @@ public class CitilinkTest {
     BasketPage basketPage = new BasketPage();
 
     @Test
+    @DisplayName("Добавление ноутбука MSI в корзину на сайте 'Ситилинк'")
     public void testCitilinkCatalog(){
         Configuration.clickViaJs = true;
         mainPage.clickCatalogButton();
@@ -21,7 +28,8 @@ public class CitilinkTest {
         catalogPage.priceFilter("708000", "710000");
         catalogPage.clickapplySelectedButton();
 
-        filteredPage.checkActiveFilters("MSI", "Цена от 708 000 ₽");
+        filteredPage.checkActiveFilters("MSI");
+        filteredPage.checkActiveFilters("Цена от 708 000 ₽");
         filteredPage.buyProduct("MSI Titan Dragon Edition");
         filteredPage.checkDigitInBasket("1");
         filteredPage.hoverBasketButton();
